@@ -1,0 +1,17 @@
+- hosts: jenkins
+  gather_facts: no
+  become: no
+  vars_files: ../vars/vars.yml
+
+  tasks:
+    - name: Jenkin serverからWEB serverへSCP
+      shell: scp -i {{ home_dir }}.ssh/id_rsa {{ target_file_path }}{{ target_file_name }} ansible@192.168.33.210:{{ home_dir }}
+
+- hosts: web
+  gather_facts: no
+  become: yes
+  vars_files: ../vars/vars.yml
+
+  tasks:
+    - name: コンテンツ公開Dirにsample.htmlを移動
+      shell: mv {{ home_dir }}{{ target_file_name }} {{ contents_path }}

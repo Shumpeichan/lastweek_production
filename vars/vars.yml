@@ -1,0 +1,4 @@
+home_dir: /home/ansible/
+target_file_path: /var/lib/jenkins/workspace/automatic_content_distribution/
+target_file_name: sample2.html
+contents_path: /var/www/html/

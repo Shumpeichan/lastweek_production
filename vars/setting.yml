@@ -1,0 +1,4 @@
+home_dir: /home/ansible/
+target_file_path: /var/lib/jenkins/workspace/auto_update_service/
+target_file_name: service_list.yml
+contents_path: /usr/etc/ansible/vars/

@@ -1,0 +1,40 @@
+---
+- hosts: web
+  gather_facts: no
+  become: yes
+  vars:
+    - target_file_path: /home/ansible/target_file.txt
+    - checked_list_path: /home/ansible/checked_list.txt
+
+  tasks:
+    - name: 調査対象ファイルの統計を取得する
+      stat:
+        path: "{{ target_file_path }}"
+      register: target_file
+
+    - name: チェックファイルの統計を取得する
+      stat:
+        path: "{{ checked_list_path }}"
+      register: checked_file
+
+    - name: チェックファイルが存在しない場合作成する
+      when: not checked_file.stat.exists
+      file:
+        path: "{{ checked_list_path }}"
+        state: touch
+        owner: ansible
+        group: ansible
+
+    - name: チェックリストに結果を記入する
+      block:
+        - name: 調査対象ファイルが存在した場合
+          when: target_file.stat.exists
+          lineinfile:
+            path: "{{ checked_list_path }}"
+            line: "{{ lookup('pipe', 'date') }} FIND IT"
+
+        - name: 調査対象ファイルが存在しなかった場合
+          when: not target_file.stat.exists
+          lineinfile:
+            path: "{{ checked_list_path }}"
+            line: "{{ lookup('pipe', 'date') }} NOT FIND IT"

@@ -1,0 +1,24 @@
+- hosts: jenkins
+  gather_facts: no
+  become: no
+  vars_files: ../vars/setting.yml
+
+  tasks:
+    - name: Jenkin serverからAnsible serverへSCP
+      shell: scp -i {{ home_dir }}.ssh/id_rsa {{ target_file_path }}{{ target_file_name }} ansible@192.168.33.200:{{ contents_path }}
+
+- hosts: web
+  gather_facts: no
+  become: yes
+  vars_files: ../vars/service_list.yml
+
+  tasks:
+    - name: 対象サービスを指定のバージョンへアップデート
+      yum:
+         name: "{{packages}}"
+         state: latest
+      register: result_pass
+
+    - name: test
+      debug:
+              msg: "{{ result_pass }}"
