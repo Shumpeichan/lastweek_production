@@ -1,0 +1,9 @@
+- hosts: web
+  become: yes
+  tasks:
+    - name: mulitiple updates
+      yum:
+        name: 
+        - yum.noarch
+        - xfsdump.x86_64
+        state: latest
