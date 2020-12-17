@@ -1,0 +1,7 @@
+- hosts: web
+  become: yes
+  tasks:
+    - name: ALL updates
+      yum:
+        name: '*' 
+        state: latest
