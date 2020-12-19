@@ -4,6 +4,6 @@
     - name: mulitiple updates
       yum:
         name: 
-        - bind-libs.x86_64 
-        - bind-libs-lite.x86_64
+        - amazon-ssm-agent.x86_64 
+        - bash.x86_64
         state: latest
