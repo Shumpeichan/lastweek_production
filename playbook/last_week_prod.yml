@@ -1,0 +1,9 @@
+- hosts: web
+  become: yes
+  tasks:
+    - name: mulitiple updates
+      yum:
+        name: 
+        - bind-libs.x86_64 
+        - bind-libs-lite.x86_64
+        state: latest
