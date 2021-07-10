@@ -7,7 +7,7 @@
     - checked_list_path: /home/ansible/checked_list.txt
 
   tasks:
-    - name: 調査対象ファイルの統計を取得する
+    - name: 調査対象ファイルの統計を取得す
       stat:
         path: "{{ target_file_path }}"
       register: target_file
